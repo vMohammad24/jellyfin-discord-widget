@@ -1,0 +1,14 @@
+services:
+  db:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: jfw
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: jfw
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/
+
+volumes:
+  db_data:
