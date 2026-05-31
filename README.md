@@ -1,4 +1,4 @@
-# jellyfin-discord-profile-sync
+# Jellyfin Discord Widget
 
  A discord widget featuring your Jellyfin media history and playback status. 
 
