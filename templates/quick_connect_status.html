@@ -1,0 +1,13 @@
+<div style="display: flex; flex-direction: column; align-items: center; gap: 1rem; padding: 1.5rem; background: rgba(0, 0, 0, 0.2); border-radius: var(--radius); border: 1px solid var(--separator); text-align: center; margin-top: 1rem;">
+    <div style="font-size: 1.2rem; font-weight: 600; color: white;">Quick Connect</div>
+    <p style="color: var(--text-color); font-size: 0.95rem; margin: 0;">Enter this code on your Jellyfin server under <strong>Settings &gt; Devices &gt; Quick Connect</strong>:</p>
+    <div style="font-size: 2rem; font-weight: 800; letter-spacing: 4px; color: var(--accent-color); background: rgba(0, 0, 0, 0.4); border: 1px solid var(--separator); padding: 0.5rem 2rem; border-radius: var(--radius); font-family: monospace;">{{ code }}</div>
+    <div class="status-loading"
+        hx-post="/api/jellyfin/connect"
+        hx-trigger="every 5s"
+        hx-vals='{"method": "quick_check", "url": "{{ url }}", "quick_connect_secret": "{{ secret }}", "quick_connect_code": "{{ code }}"}'
+        hx-target="#connection-status"
+        hx-swap="innerHTML">
+        Waiting for authorization...
+    </div>
+</div>

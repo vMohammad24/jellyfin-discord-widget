@@ -1,0 +1,14 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            UPDATE users SET\n                last_active_at = NOW(),\n                updated_at = NOW()\n            WHERE discord_id = $1\n            ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Text"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "b2237e0ea8285aa8a5e7bdc02a97252f4ad916c1a4e7daafb14189910ecd71b2"
+}

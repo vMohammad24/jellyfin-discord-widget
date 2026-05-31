@@ -1,0 +1,8 @@
+{% match status %}
+    {% when PlaybackStatus::Playing with { title, type_ } %}
+        <div class='status-playing'>Now Playing: {{ title }} ({{ type_ }})</div>
+    {% when PlaybackStatus::Idle %}
+        <div class='status-idle'>Idle (Not Playing)</div>
+    {% when PlaybackStatus::Offline %}
+        <div class='status-error'>Failed to fetch stats (Jellyfin server offline)</div>
+{% endmatch %}

@@ -1,0 +1,17 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "\n            UPDATE users SET\n                jellyfin_url = $2,\n                jellyfin_user_id = $3,\n                jellyfin_access_token = $4,\n                last_active_at = NOW(),\n                updated_at = NOW()\n            WHERE discord_id = $1\n            ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Text",
+        "Text",
+        "Text",
+        "Text"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "3594b918bada4d051a0f53b86486f31a5348d6ed46c776b1a77ba88062b51a1e"
+}
