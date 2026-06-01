@@ -1,4 +1,3 @@
-# https://heliopolis.live/atums/genesis/-/blob/main/.gitlab-ci.yml?ref_type=heads
 stages:
   - lint
   - build
@@ -27,5 +26,5 @@ docker-build:
     - until docker info >/dev/null 2>&1; do sleep 1; done
     - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
   script:
-    - docker build -t $DOCKER_IMAGE_NAME:latest .
-    - docker push $DOCKER_IMAGE_NAME:latest
+    - docker build -t $CI_REGISTRY_IMAGE:latest .
+    - docker push $CI_REGISTRY_IMAGE:latest
