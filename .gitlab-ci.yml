@@ -1,0 +1,35 @@
+# https://heliopolis.live/atums/genesis/-/blob/main/.gitlab-ci.yml?ref_type=heads
+stages:
+  - lint
+  - build
+
+lint:
+  image: rust:1.95
+  stage: lint
+  script:
+    - rustup component add rustfmt clippy
+    - cargo fmt -- --check
+    - cargo clippy -- -D warnings
+
+docker-build:
+  image: docker:latest
+  stage: build
+  services:
+    - name: docker:dind
+      command: ["--tls=false"]
+  tags:
+    - privileged
+  variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_TLS_CERTDIR: ""
+  before_script:
+    - until docker info >/dev/null 2>&1; do sleep 1; done
+    - echo "$DOCKER_REGISTRY_TOKEN" | docker login -u "$DOCKER_REGISTRY_USER" --password-stdin "$DOCKER_REGISTRY"
+  script:
+    - docker build -t $DOCKER_IMAGE_NAME:$CI_COMMIT_TAG .
+    - docker tag $DOCKER_IMAGE_NAME:$CI_COMMIT_TAG $DOCKER_IMAGE_NAME:latest
+    - docker push $DOCKER_IMAGE_NAME:$CI_COMMIT_TAG
+    - docker push $DOCKER_IMAGE_NAME:latest
+  rules:
+    - if: $CI_COMMIT_TAG
